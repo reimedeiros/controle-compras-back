@@ -30,24 +30,15 @@ export class InventoryService {
   }
 
   async findAll() {
-    const allCategory = await this.categoryRepository.find();
-    let data: any = [];
-    let dataInventory: any;
+    const data = await this.inventoryRepository.find({
+      relations: ['category'],
+    });
 
-    for (let index = 0; index < allCategory.length; index++) {
-      if (allCategory[index].name) {
-        dataInventory = await this.inventoryRepository.find({
-          where: { category: allCategory[index] },
-        });
+    return data;
+  }
 
-        const obj = {
-          category: allCategory[index].name,
-          inventory: dataInventory,
-        };
-
-        data.push(obj);
-      }
-    }
+  async findAllCategories() {
+    const data = await this.categoryRepository.find();
 
     return data;
   }

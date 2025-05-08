@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CategoryEntity } from './category.entity';
 
 @Entity('inventory')
@@ -15,8 +9,11 @@ export class InventoryEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ type: 'float' })
   quantity: number;
+
+  @Column()
+  unity: string;
 
   @ManyToOne(() => CategoryEntity, (category) => category.id)
   category?: CategoryEntity;

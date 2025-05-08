@@ -45,6 +45,15 @@ export class InventoryController {
     }
   }
 
+  @Get('categories')
+  findAllCategories() {
+    try {
+      return this.inventoryService.findAllCategories();
+    } catch (error: any) {
+      throw new UnknownException(error.message);
+    }
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     try {

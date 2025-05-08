@@ -1,4 +1,4 @@
-import { IsDate, IsInt, IsOptional, IsString } from 'class-validator';
+import { IsDate, IsDecimal, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class CreateInventoryDto {
   @IsOptional()
@@ -7,8 +7,11 @@ export class CreateInventoryDto {
   @IsString()
   name: string;
 
-  @IsInt()
+  @IsDecimal()
   quantity: number;
+
+  @IsString()
+  unity: string;
 
   @IsInt()
   categoryId?: number;
