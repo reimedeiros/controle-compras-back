@@ -9,10 +9,11 @@ import {
 } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 import { CreateInventoryDto } from './dto/create-inventory.dto';
-import { UpdateInventoryDto } from './dto/update-inventory.dto';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UnknownException } from 'src/service/exceptions/unknown.exception';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { inventoryInterface } from '../service/interfaces/inventory.interface';
+import { UpdateInventoryDto } from './dto/update-inventory.dto';
 
 @Controller('inventory')
 export class InventoryController {
@@ -70,6 +71,18 @@ export class InventoryController {
   ) {
     try {
       return this.inventoryService.update(+id, updateInventoryDto);
+    } catch (error: any) {
+      throw new UnknownException(error.message);
+    }
+  }
+
+  @Patch('operation/:id')
+  operation(
+    @Param('id') id: string,
+    @Body() updateInventoryDto: inventoryInterface,
+  ) {
+    try {
+      return this.inventoryService.updateAmount(+id, updateInventoryDto);
     } catch (error: any) {
       throw new UnknownException(error.message);
     }
